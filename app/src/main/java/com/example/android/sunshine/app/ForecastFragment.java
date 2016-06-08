@@ -154,13 +154,6 @@ public class ForecastFragment extends Fragment {
                 }
                 forecastJsonStr = buffer.toString();
 
-                Log.v(LOG_TAG, "Forecast JSON String: " + forecastJsonStr);
-
-                try {
-                    Log.v(LOG_TAG,"Max Temp: "+ getMaxTemperatureForDay(forecastJsonStr,1));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             } catch (IOException e) {
                 Log.e("PlaceholderFragment", "Error ", e);
                 // If the code didn't successfully get the weather data, there's no point in attempting
@@ -282,9 +275,6 @@ public class ForecastFragment extends Fragment {
                 resultStrs[i] = day + " - " + description + " - " + highAndLow;
             }
 
-            for (String s : resultStrs) {
-                Log.v(LOG_TAG, "Forecast entry: " + s);
-            }
             return resultStrs;
         }
 
@@ -319,16 +309,4 @@ public class ForecastFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.forecastfragment,menu);
     }
-
-    public double getMaxTemperatureForDay(String weatherJsonStr, int dayIndex)
-        throws JSONException {
-
-        JSONObject weather = new JSONObject(weatherJsonStr);
-        JSONArray days = weather.getJSONArray("list");
-        JSONObject dayInfo = days.getJSONObject(dayIndex);
-        JSONObject temperatureInfo = dayInfo.getJSONObject("temp");
-        return temperatureInfo.getDouble("max");
-    }
-
-
 }
